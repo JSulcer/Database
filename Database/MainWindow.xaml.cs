@@ -21,11 +21,12 @@ namespace Database
     /// </summary>
     public partial class MainWindow : Window
     {
+        string data = "";
         OleDbConnection cn;
         public MainWindow()
         {
             InitializeComponent();
-            cn = new OleDbConnection(DatabaseTestConnectionString);
+            cn = new OleDbConnection("Provider=Microsoft.ACE.OLEDB.12.0;Data Source=DatabaseTest.accdb");
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -34,7 +35,6 @@ namespace Database
             OleDbCommand cmd = new OleDbCommand(query, cn);
             cn.Open();
             OleDbDataReader read = cmd.ExecuteReader();
-            string data = "";
             while (read.Read())
             {
                 data += read[0].ToString() + "\n";
@@ -43,7 +43,7 @@ namespace Database
 
         private void TextBox_TextChanged(object sender, TextChangedEventArgs e)
         {
-
+            label1.Text = data;
         }
     }
 }
